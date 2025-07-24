@@ -232,7 +232,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
   ],
   standalone: true,
 })
-export class MapPage {
+export class VoicePage {
   recognizedText: string = '';
    isListening: boolean = false;
   matches: any; //Array<String>;
