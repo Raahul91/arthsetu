@@ -15,7 +15,7 @@ dependencies {
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
-
+    implementation "com.google.android.gms:play-services-auth-api-phone:15.0.1"
 }
 
 

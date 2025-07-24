@@ -25,6 +25,8 @@ import { routes } from './app/app.routes';
 import { environment } from './environments/environment';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import {TextToSpeech } from '@ionic-native/text-to-speech/ngx'; 
+import { SmsRetriever } from '@awesome-cordova-plugins/sms-retriever/ngx';
+
 if (environment.production) {
   enableProdMode();
 }
@@ -50,6 +52,7 @@ bootstrapApplication(AppComponent, {
       registrationStrategy: 'registerWhenStable:30000',
     }),
     SpeechRecognition,
-    TextToSpeech
+    TextToSpeech,
+    SmsRetriever
   ],
 }).catch(err => console.error(err));

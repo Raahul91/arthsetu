@@ -59,18 +59,21 @@
   </div>
 </ion-content> -->
 
-
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>Verify OTP</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-text>
+    OTP sent to <strong>{{ mobile }}</strong>
+  </ion-text>
+
   <ion-item fill="outline">
-    <ion-label position="floating">Mobile Number</ion-label>
-    <ion-input type="tel" [(ngModel)]="mobile" maxlength="10" (keyup)="onMobileKeyup($event)"></ion-input>
+    <ion-label position="floating">Enter OTP</ion-label>
+    <ion-input type="number" [(ngModel)]="otp" maxlength="6" (keyup)="onOtpKeyup($event)"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" (click)="sendOtp()">Send OTP</ion-button>
+  <ion-button expand="block" (click)="verifyOtp()">Verify</ion-button>
 </ion-content>
