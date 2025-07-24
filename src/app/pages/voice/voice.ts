@@ -15,7 +15,9 @@ import {
   IonTitle,
   IonToolbar,
   IonCard,
-  IonCardContent
+  IonCardContent,
+  IonNav,
+  IonIcon
 } from '@ionic/angular/standalone';
 // import { LocationService } from '../../providers/location.service';
 // import { Location } from '../../interfaces/conference.interfaces';
@@ -217,8 +219,8 @@ import { CommonModule } from '@angular/common';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 @Component({
   selector: 'app-home',
-  templateUrl: 'map.html',
-  styleUrls: ['map.scss'],
+  templateUrl: 'voice.html',
+  styleUrls: ['voice.scss'],
   imports: [
     IonHeader,
     IonToolbar,
@@ -228,6 +230,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
     IonContent,
     IonCardContent,
     IonCard,
+    IonToolbar,
+    IonIcon,
     CommonModule
   ],
   standalone: true,
@@ -292,18 +296,32 @@ export class VoicePage {
 
 
        await this.speech.requestPermission();
-        this.speech.startListening()
+        this.speech.startListening({
+            //language: 'en-US',
+            showPopup: false,
+            matches: 1,
+            prompt: '' // Prevent system popup
+          })
           .subscribe(
             (matches) => {
+               console.log('Speech matches:', matches);
+               this.stopListening();
               _this.zone.run(() => {
               _this.matches = matches;
             })
               console.log(matches);
             },
-            (error) => console.error(error)
+            (error) => {
+                    console.error('Error during recognition:', error);
+                    this.stopListening();     
+            }
           );
 
   }
+
+  stopListening() {
+  this.speech.stopListening();
+}
 
   toggleListenMode():void {
     this.isListening = this.isListening ? false : true;
