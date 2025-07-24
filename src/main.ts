@@ -23,7 +23,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { environment } from './environments/environment';
-import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx'; 
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+import {TextToSpeech } from '@ionic-native/text-to-speech/ngx'; 
 if (environment.production) {
   enableProdMode();
 }
@@ -48,6 +49,7 @@ bootstrapApplication(AppComponent, {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    SpeechRecognition
+    SpeechRecognition,
+    TextToSpeech
   ],
 }).catch(err => console.error(err));

@@ -7,8 +7,8 @@
 </ion-header> -->
 
 <ion-content padding>
-  <p>Is listening ? : {{ isListening }}</p>
-  <button ion-button (click)="getPermission()">Get Permission</button>
+  <!-- <p>Is listening ? : {{ isListening }}</p> -->
+  <!-- <button ion-button (click)="getPermission()">Get Permission</button> -->
   <button ion-button (click)="listen()">
     <div>
       <!-- <ion-icon name="mic"> -->
@@ -21,4 +21,8 @@
       <p>{{ match }}</p>
     </ion-card-content>
   </ion-card>
+
+   <button expand="block" (click)="convertTextToSpeech('मराठी टायपिंग | इंग्रजी ते मराठी | ऑनलाइन मराठी टायपिंग')">
+    Speak Text
+  </button>
 </ion-content>
