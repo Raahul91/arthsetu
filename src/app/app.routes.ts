@@ -18,6 +18,6 @@ export const routes: Routes = [
   {
     path: 'app',
     loadComponent: () =>
-      import('./pages/map/map').then(m => m.MapPage),
+      import('./pages/voice/voice').then(m => m.VoicePage),
   },
 ];
