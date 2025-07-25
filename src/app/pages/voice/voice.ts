@@ -273,6 +273,7 @@ export class VoicePage {
   }
 
   async listen() {
+     this.isListening = true;
     console.log('listen action triggered');
     // if (this.isListening) {
     //   this.speech.stopListening();
@@ -302,6 +303,10 @@ export class VoicePage {
             (matches) => {
                console.log('Speech matches:', matches);
                this.stopListening();
+               setTimeout(() => {
+                  this.isListening = false;
+                  console.log('Stopped listening');
+                }, 5000);
               _this.zone.run(() => {
               _this.matches = matches;
             })
@@ -309,6 +314,7 @@ export class VoicePage {
             },
             (error) => {
                     console.error('Error during recognition:', error);
+                    this.isListening = false;
                     this.stopListening();     
             }
           );
