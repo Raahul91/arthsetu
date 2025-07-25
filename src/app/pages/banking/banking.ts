@@ -1,6 +1,6 @@
 import { Component, effect, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, IonHeader, IonToolbar } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
@@ -37,8 +37,18 @@ export class BankingPage {
   amount = signal<number>(0);
   transaction = signal<any | null>(null);
   transactions = signal<any[]>([]);
+  params: any;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(params => {
+    console.log('Received params:', params);
+    this.params = params;
+    if(this.params && this.params.contact && this.params.amount) {
+      this.currentPage.set('send-money');
+      //this.fetchContacts();
+    }
+  });
+
     effect(() => {
       if (this.currentPage() === 'send-money') {
         this.fetchContacts();
@@ -56,6 +66,13 @@ export class BankingPage {
       .then(data => {
         this.contacts.set(data);
         this.contactsLoading.set(false);
+        if(this.params && this.params.contact && this.params.amount) {
+          const user = data.find(user => user.name.toString().includes(this.params.contact.toString()));
+          if (user) {
+            this.onContactClick(user);
+            this.amount.set(this.params.amount);
+          }
+        }
       })
       .catch(() => {
         this.contacts.set([]);
@@ -154,6 +171,7 @@ export class BankingPage {
   }
 
   onContactClick(contact: any) {
+    console.log('contact.....', contact);
     this.selectedContact.set(contact);
     this.currentPage.set('send-money-detail');
   }

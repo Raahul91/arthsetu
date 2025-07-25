@@ -262,7 +262,10 @@ export class VoicePage {
   // }
 
   goToBanking(): void {
-    this.router.navigate(['/banking']);
+      // this.router.navigate(['/banking']);
+    this.router.navigate(['/banking'], {
+          queryParams: { contact: 'Amit', amount: '10000' }});
+        
   }
 
   async hasPermission():Promise<boolean> {
@@ -343,16 +346,22 @@ export class VoicePage {
     this.isListening = this.isListening ? false : true;
     console.log('listening mode is now : ' + this.isListening);
   }
-
-  async convertTextToSpeech(text: string) {
+//{"action":"voice","voicedata":"Your account balance is ₹83,625.","amount":null,"contact":null}
+  async convertTextToSpeech(text: any) {
     try {
-      this.speechResponse.set(text);
-      await this.textToSpeech.speak({
-        text: text,
-        locale: 'hi-IN', //'en-US', // Optional: specify a locale
-        rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
-      });
-      console.log('Text spoken successfully');
+      if(text && text.action == 'voice'){
+        this.speechResponse.set(text);
+        await this.textToSpeech.speak({
+          text: text,
+          locale: 'hi-IN', //'en-US', // Optional: specify a locale
+          rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
+        });
+        console.log('Text spoken successfully');
+      } else if(text && text.action == 'transfer'){
+        // ?name='+ text.contact + ',amount=' + text.amount
+        this.router.navigate(['/banking'], {
+          queryParams: { contact: text.contact, amount: text.amount }});
+        }      
     } catch (e) {
       console.error('Error speaking text:', e);
     }

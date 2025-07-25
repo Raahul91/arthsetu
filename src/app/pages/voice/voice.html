@@ -18,8 +18,9 @@
   </div>
 
 
-   <button class="btn-button" (click)="goToBanking()">
-      Go to Banking
+   <button class="btn-button" (click)="goToBanking()" style="height: 80px;">
+      Go to Banking <img src="assets/img/banking.png" style="    width: 50px;
+    vertical-align: middle;">
     </button>
 
   <button ion-button (click)="listen()" class="speaking" [class.pulsing]="isListening" style="margin-top: 50px;">
@@ -28,7 +29,7 @@
   <ion-card>
     <ion-card-content *ngFor="let match of matches">
       <div *ngIf="spokenText()" class="spoken-text">{{spokenText()}}</div>
-      <div *ngIf="speechResponse()" class="api-response">{{apiResponse()}}</div>
+      <div *ngIf="speechResponse()" class="api-response">{{speechResponse()}}</div>
     </ion-card-content>
   </ion-card>
 

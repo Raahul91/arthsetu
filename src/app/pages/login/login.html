@@ -60,7 +60,7 @@
 </ion-content> -->
 
 
-<ion-header>
+<ion-header  style="    box-shadow: none;">
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
@@ -72,5 +72,5 @@
     <ion-input type="tel" [(ngModel)]="mobile" maxlength="10" (keyup)="onMobileKeyup($event)"></ion-input>
   </ion-item>
 
-  <ion-button expand="block" (click)="sendOtp()">Send OTP</ion-button>
+  <ion-button expand="block" (click)="sendOtp()" style="    margin-top: 20px;">Send OTP</ion-button>
 </ion-content>

@@ -19,6 +19,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/banking/banking').then(m => m.BankingPage),
   },
   {
+    path: 'banking?name={name},amount={amount}',
+    loadComponent: () => import('./pages/banking/banking').then(m => m.BankingPage),
+  },
+  {
     path: 'voice',
     loadComponent: () => import('./pages/voice/voice').then(m => m.VoicePage),
   },
