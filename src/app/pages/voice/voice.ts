@@ -301,6 +301,8 @@ export class VoicePage {
   async listen() {
     if (this.speechReading()) {
       this.speechReading.set(false);
+      this.textToSpeech.stop().then(() => console.log('Speech stopped'))
+      .catch(err => console.error('Stop error', err));
     }
     this.isListening = true;
     console.log('listen action triggered');
@@ -361,12 +363,13 @@ export class VoicePage {
   }
 //{"action":"voice","voicedata":"Your account balance is ₹83,625.","amount":null,"contact":null}
   async convertTextToSpeech(text: any) {
+    console.log(text)
     try {
         this.speechReading.set(true);
         this.speechResponse.set(text);
         await this.textToSpeech.speak({
           text: text,
-          locale: 'hi-IN', //'en-US', // Optional: specify a locale
+          locale: 'en-IN', //'en-US', // Optional: specify a locale
           rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
         });
         console.log('Text spoken successfully'); 
@@ -384,14 +387,17 @@ export class VoicePage {
       fetch(url)
         .then(res => res.text())
         .then(async (data:any) => {
+          console.log('data',data);
           let cleaned = '';
-          if (data.action === 'voice') {
-            cleaned = data.voicedata;
-            await loading.dismiss(); 
+          const cleanedData = JSON.parse(data);
+          await loading.dismiss();
+          if (cleanedData.action == 'voice') {
+            console.log('in if',cleanedData.voicedata)
+            cleaned = cleanedData.voicedata;
             await this.convertTextToSpeech(cleaned);
-          } else if (data.action === 'transfer') {
+          } else if (cleanedData.action == 'transfer') {
             this.router.navigate(['/banking'], {
-              queryParams: { contact: data.contact, amount: data.amount }});
+              queryParams: { contact: cleanedData.contact, amount: cleanedData.amount }});
           }
           // const cleaned = data.voicedata
           //   .split('\n')

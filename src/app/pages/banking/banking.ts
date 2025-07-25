@@ -174,6 +174,7 @@ export class BankingPage {
     console.log('contact.....', contact);
     this.selectedContact.set(contact);
     this.currentPage.set('send-money-detail');
+   // this.sendMoney();
   }
 
   onAmountInput(event: Event) {
