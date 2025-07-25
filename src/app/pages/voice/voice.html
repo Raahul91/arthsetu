@@ -7,14 +7,10 @@
 <ion-content padding>
   <!-- <p>Is listening ? : {{ isListening }}</p> -->
   <!-- <button ion-button (click)="getPermission()">Get Permission</button> -->
-  <button ion-button (click)="listen()">
-    <div>
-      <ion-icon name="mic">
-        <svg style="width: 100px; height:100px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+  <button ion-button (click)="listen()" class="speaking">
+    <svg style="width: 100px; height:100px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3s-3 1.34-3 3v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-2.08c3.39-.49 6-3.39 6-6.92h-2z"/>
         </svg>
-      </ion-icon>
-    </div>
   </button>
   <ion-card>
     <ion-card-content *ngFor="let match of matches">

@@ -15,3 +15,16 @@
 .show-map {
   opacity: 1;
 }
+
+  .speaking {
+    background: #f50057;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    cursor: pointer;
+    outline: none;
+    margin: 0 auto;
+  }
