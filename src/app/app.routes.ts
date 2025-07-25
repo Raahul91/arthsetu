@@ -15,9 +15,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/otp/otp').then(m => m.OtpPage),
   },
   {
-    path: 'signup',
+    path: 'banking',
     loadComponent: () =>
-      import('./pages/signup/signup').then(m => m.SignupPage),
+      import('./pages/banking/banking').then(m => m.BankingPage),
   },
   {
     path: 'app',

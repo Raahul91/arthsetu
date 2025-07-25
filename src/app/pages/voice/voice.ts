@@ -224,14 +224,10 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
   imports: [
     IonHeader,
     IonToolbar,
-    IonButtons,
-    IonMenuButton,
-    IonTitle,
     IonContent,
     IonCardContent,
     IonCard,
     IonToolbar,
-    IonIcon,
     CommonModule
   ],
   standalone: true,
