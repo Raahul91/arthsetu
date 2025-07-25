@@ -16,12 +16,10 @@ export const routes: Routes = [
   },
   {
     path: 'banking',
-    loadComponent: () =>
-      import('./pages/banking/banking').then(m => m.BankingPage),
+    loadComponent: () => import('./pages/banking/banking').then(m => m.BankingPage),
   },
   {
-    path: 'app',
-    loadComponent: () =>
-      import('./pages/voice/voice').then(m => m.VoicePage),
+    path: 'voice',
+    loadComponent: () => import('./pages/voice/voice').then(m => m.VoicePage),
   },
 ];

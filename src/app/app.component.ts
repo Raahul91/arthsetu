@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
   private platform = inject(Platform);
 
   appPages = [
-    {
+    /* {
       title: 'Schedule',
       url: '/app/tabs/schedule',
       icon: 'calendar',
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
       title: 'About',
       url: '/app/tabs/about',
       icon: 'information-circle',
-    },
+    }, */
   ];
   loggedIn = false;
   dark = false;
@@ -179,7 +179,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.userService.logout().then(() => {
-      return this.router.navigateByUrl('/app/tabs/schedule');
+      //return this.router.navigateByUrl('/app/tabs/schedule');
     });
   }
 

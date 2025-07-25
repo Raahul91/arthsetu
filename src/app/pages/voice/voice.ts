@@ -217,6 +217,7 @@ import { Component, NgZone } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { CommonModule } from '@angular/common';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: 'voice.html',
@@ -234,9 +235,13 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 })
 export class VoicePage {
   recognizedText: string = '';
-   isListening: boolean = false;
+  isListening: boolean = false;
   matches: any; //Array<String>;
-  constructor(private speech: SpeechRecognition, private zone: NgZone, private textToSpeech: TextToSpeech) {}
+  constructor(
+    private speech: SpeechRecognition,
+    private zone: NgZone, 
+    private textToSpeech: TextToSpeech,
+    private router: Router) {}
 
   // async startListening() {
   //   await this.speechRecognition.requestPermission();
@@ -254,7 +259,11 @@ export class VoicePage {
   //   this.speechRecognition.stopListening();
   // }
 
-   async hasPermission():Promise<boolean> {
+  goToBanking(): void {
+    this.router.navigate(['/banking']);
+  }
+
+  async hasPermission():Promise<boolean> {
     try {
       const permission = await this.speech.hasPermission();
       console.log(permission);

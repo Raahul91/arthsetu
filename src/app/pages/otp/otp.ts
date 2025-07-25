@@ -102,7 +102,7 @@ export class OtpPage {
     //   this.navCtrl.navigateForward(`/app`, {
     //   state: { mobile: this.mobile }
     // });
-    this.router.navigate(['/app']);
+    this.router.navigate(['/voice']);
     
     } else {
       const toast = await this.toastCtrl.create({

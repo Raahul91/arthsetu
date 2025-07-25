@@ -1,22 +1,7 @@
 import { Component, effect, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonMenuButton,
-  IonTitle,
-  IonToolbar,
-  IonCol,
-  IonRow
-} from '@ionic/angular/standalone';
-
-import { UserService } from '../../providers/user.service';
-
-import { UserOptions } from '../../interfaces/user-options';
+import { IonContent, IonHeader, IonToolbar } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -25,12 +10,14 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['banking.scss'],
   imports: [
     IonContent,
+    IonToolbar,
+    IonHeader,
     FormsModule,
     CommonModule
   ]
 })
 export class BankingPage {
-  protected readonly title = signal('sahayakpay');
+  protected readonly title = signal('arthsetu');
   currentPage = signal('home');
   isListening = signal(false);
   spokenText = signal('');
@@ -185,7 +172,7 @@ export class BankingPage {
   sendMoney() {
     const contact = this.selectedContact();
     const amount = this.amount();
-    fetch('http://localhost:3001/api/send-money', {
+    fetch('https://arthasetunode-282482783617.asia-south1.run.app/api/send-money', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount, name: contact?.name, photo: contact?.photo })
@@ -218,7 +205,7 @@ export class BankingPage {
   }
 
   showTransactions() {
-    fetch('http://localhost:3001/api/transactions')
+    fetch('https://arthasetunode-282482783617.asia-south1.run.app/api/transactions')
       .then(res => res.json())
       .then(data => {
         this.transactions.set(data);

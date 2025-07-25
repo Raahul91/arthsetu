@@ -1,6 +1,10 @@
+<ion-header>
+  <ion-toolbar class="header-toolbar">
+    <img src="assets/img/logo.png" alt="Logo" />
+  </ion-toolbar>
+</ion-header>
 <ion-content>
       <div *ngIf="currentPage() === 'home'" class="homepage-container">
-      <h1 class="welcome-title">Welcome to <span class="brand">SahayakPay</span></h1>
       <div class="button-group">
         <button class="action-btn" aria-label="Send Money" (click)="currentPage.set('send-money')"><span class="btn-icon" aria-hidden="true">💸</span> Send Money</button>
         <button class="action-btn" aria-label="Check Balance" (click)="currentPage.set('check-balance')"><span class="btn-icon" aria-hidden="true">💰</span> Check Balance</button>
