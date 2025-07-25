@@ -67,7 +67,7 @@ export class BankingPage {
         this.contacts.set(data);
         this.contactsLoading.set(false);
         if(this.params && this.params.contact && this.params.amount) {
-          const user = data.find(user => user.name.toString().includes(this.params.contact.toString()));
+          const user = data.find(user => user.name.toLowerCase().includes(this.params.contact.toLowerCase()));
           if (user) {
             this.onContactClick(user);
             this.amount.set(this.params.amount);

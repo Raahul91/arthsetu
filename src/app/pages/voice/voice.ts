@@ -332,10 +332,7 @@ export class VoicePage {
             (matches) => {
                console.log('Speech matches:', matches);
                this.stopListening();
-               setTimeout(() => {
-                  this.isListening = false;
-                  console.log('Stopped listening');
-                }, 500);
+                this.isListening = false;
               _this.zone.run(() => {
               _this.matches = matches;
               if (matches.length > 0) {
@@ -365,24 +362,15 @@ export class VoicePage {
 //{"action":"voice","voicedata":"Your account balance is ₹83,625.","amount":null,"contact":null}
   async convertTextToSpeech(text: any) {
     try {
-      if(text && text.action == 'voice'){
-         this.speechReading.set(true);
+        this.speechReading.set(true);
         this.speechResponse.set(text);
         await this.textToSpeech.speak({
           text: text,
           locale: 'hi-IN', //'en-US', // Optional: specify a locale
           rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
         });
-        console.log('Text spoken successfully');
-        
-      console.log('Text spoken successfully');
-	  
-
-      } else if(text && text.action == 'transfer'){
-        // ?name='+ text.contact + ',amount=' + text.amount
-        this.router.navigate(['/banking'], {
-          queryParams: { contact: text.contact, amount: text.amount }});
-        }      
+        console.log('Text spoken successfully'); 
+        console.log('Text spoken successfully');   
     } catch (e) {
       this.speechResponse.set('');
       console.error('Error speaking text:', e);
@@ -395,14 +383,22 @@ export class VoicePage {
       const url = `https://arthasetunode-282482783617.asia-south1.run.app/api/voice-proxy?prompt=${encoded}`;
       fetch(url)
         .then(res => res.text())
-        .then(async (data) => {
-          const cleaned = data
-            .split('\n')
-            .map(line => line.replace(/^data:/, '').trim())
-            .filter(line => line.length > 0)
-            .join(' ');
-          await loading.dismiss(); 
-          await this.convertTextToSpeech(cleaned);
+        .then(async (data:any) => {
+          let cleaned = '';
+          if (data.action === 'voice') {
+            cleaned = data.voicedata;
+            await loading.dismiss(); 
+            await this.convertTextToSpeech(cleaned);
+          } else if (data.action === 'transfer') {
+            this.router.navigate(['/banking'], {
+              queryParams: { contact: data.contact, amount: data.amount }});
+          }
+          // const cleaned = data.voicedata
+          //   .split('\n')
+          //   .map(line => line.replace(/^data:/, '').trim())
+          //   .filter(line => line.length > 0)
+          //   .join(' ');
+
         })
         .catch(async (error) => {
           await loading.dismiss(); 
