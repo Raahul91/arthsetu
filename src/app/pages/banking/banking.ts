@@ -38,7 +38,7 @@ export class BankingPage {
   transaction = signal<any | null>(null);
   transactions = signal<any[]>([]);
 
-  constructor() {
+  constructor(private router: Router) {
     effect(() => {
       if (this.currentPage() === 'send-money') {
         this.fetchContacts();
@@ -225,5 +225,9 @@ export class BankingPage {
       return new Date(txn.timestamp._seconds * 1000);
     }
     return null;
+  }
+
+  backToVoice() {
+    this.router.navigate(['/voice'])
   }
 }
