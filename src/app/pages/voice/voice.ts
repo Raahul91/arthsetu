@@ -274,9 +274,9 @@ export class VoicePage {
     }
 
   goToBanking(): void {
-      // this.router.navigate(['/banking']);
-    this.router.navigate(['/banking'], {
-          queryParams: { contact: 'Amit', amount: '10000' }});
+      this.router.navigate(['/banking']);
+    // this.router.navigate(['/banking'], {
+    //       queryParams: { contact: 'Amit', amount: '10000' }});
         
   }
 
