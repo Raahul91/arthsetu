@@ -213,7 +213,7 @@ import {
 // }
 
 
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, signal } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { CommonModule } from '@angular/common';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
@@ -234,6 +234,8 @@ import { Router } from '@angular/router';
   standalone: true,
 })
 export class VoicePage {
+  spokenText = signal('');
+  speechResponse = signal('');
   recognizedText: string = '';
   isListening: boolean = false;
   matches: any; //Array<String>;
@@ -299,8 +301,7 @@ export class VoicePage {
     //       _this.matches = matches;
     //     })
     //   }, (error) => console.error(error));
-
-
+      this.spokenText.set('');
        await this.speech.requestPermission();
         this.speech.startListening({
             //language: 'en-US',
@@ -318,21 +319,25 @@ export class VoicePage {
                 }, 500);
               _this.zone.run(() => {
               _this.matches = matches;
+              if (matches.length > 0) {
+                this.spokenText.set('matches[0]');
+                this.sendToVoiceProxy(matches[0]);
+              }
             })
               console.log(matches);
             },
             (error) => {
-                    console.error('Error during recognition:', error);
-                    this.isListening = false;
-                    this.stopListening();     
+              console.error('Error during recognition:', error);
+              this.isListening = false;
+              this.stopListening();     
             }
           );
 
   }
 
   stopListening() {
-  this.speech.stopListening();
-}
+    this.speech.stopListening();
+  }
 
   toggleListenMode():void {
     this.isListening = this.isListening ? false : true;
@@ -341,14 +346,33 @@ export class VoicePage {
 
   async convertTextToSpeech(text: string) {
     try {
+      this.speechResponse.set(text);
       await this.textToSpeech.speak({
         text: text,
-        locale: 'mr-IN', //'en-US', // Optional: specify a locale
+        locale: 'hi-IN', //'en-US', // Optional: specify a locale
         rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
       });
       console.log('Text spoken successfully');
     } catch (e) {
       console.error('Error speaking text:', e);
     }
+  }
+
+    sendToVoiceProxy(text: string) {
+      const encoded = encodeURIComponent(text);
+      const url = `https://arthasetunode-282482783617.asia-south1.run.app/api/voice-proxy?prompt=${encoded}`;
+      fetch(url)
+        .then(res => res.text())
+        .then(async (data) => {
+          const cleaned = data
+            .split('\n')
+            .map(line => line.replace(/^data:/, '').trim())
+            .filter(line => line.length > 0)
+            .join(' ');
+          await this.convertTextToSpeech(cleaned);
+        })
+        .catch((error) => {
+          console.error('Error during recognition:', error);
+        });
   }
 }
