@@ -19,6 +19,7 @@ import {
   IonNav,
   IonIcon
 } from '@ionic/angular/standalone';
+  import { LoadingController } from '@ionic/angular';
 // import { LocationService } from '../../providers/location.service';
 // import { Location } from '../../interfaces/conference.interfaces';
 // import * as L from 'leaflet';
@@ -236,6 +237,7 @@ import { Router } from '@angular/router';
 export class VoicePage {
   spokenText = signal('');
   speechResponse = signal('');
+  speechReading = signal(false);
   recognizedText: string = '';
   isListening: boolean = false;
   matches: any; //Array<String>;
@@ -243,7 +245,8 @@ export class VoicePage {
     private speech: SpeechRecognition,
     private zone: NgZone, 
     private textToSpeech: TextToSpeech,
-    private router: Router) {}
+    private router: Router,
+  private loadingController: LoadingController) {}
 
   // async startListening() {
   //   await this.speechRecognition.requestPermission();
@@ -260,6 +263,15 @@ export class VoicePage {
   // stopListening() {
   //   this.speechRecognition.stopListening();
   // }
+
+    async presentLoading() {
+      const loading = await this.loadingController.create({
+        message: 'Getting response from AI...', // Optional: customize the message
+        spinner: 'crescent' // Optional: customize the spinner type (e.g., 'dots', 'lines')
+      });
+      await loading.present();
+      return loading; // Return the loading instance to dismiss it later
+    }
 
   goToBanking(): void {
       // this.router.navigate(['/banking']);
@@ -287,7 +299,10 @@ export class VoicePage {
   }
 
   async listen() {
-     this.isListening = true;
+    if (this.speechReading()) {
+      this.speechReading.set(false);
+    }
+    this.isListening = true;
     console.log('listen action triggered');
     // if (this.isListening) {
     //   this.speech.stopListening();
@@ -305,9 +320,10 @@ export class VoicePage {
     //     })
     //   }, (error) => console.error(error));
       this.spokenText.set('');
+      this.speechResponse.set('');
        await this.speech.requestPermission();
         this.speech.startListening({
-            //language: 'en-US',
+            language: 'hi-IN',
             showPopup: false,
             matches: 1,
             prompt: '' // Prevent system popup
@@ -323,7 +339,7 @@ export class VoicePage {
               _this.zone.run(() => {
               _this.matches = matches;
               if (matches.length > 0) {
-                this.spokenText.set('matches[0]');
+                this.spokenText.set(matches[0]);
                 this.sendToVoiceProxy(matches[0]);
               }
             })
@@ -350,6 +366,7 @@ export class VoicePage {
   async convertTextToSpeech(text: any) {
     try {
       if(text && text.action == 'voice'){
+         this.speechReading.set(true);
         this.speechResponse.set(text);
         await this.textToSpeech.speak({
           text: text,
@@ -357,17 +374,23 @@ export class VoicePage {
           rate: 1.0 // Optional: speech rate (e.g., 0.5 to 2.0)
         });
         console.log('Text spoken successfully');
+        
+      console.log('Text spoken successfully');
+	  
+
       } else if(text && text.action == 'transfer'){
         // ?name='+ text.contact + ',amount=' + text.amount
         this.router.navigate(['/banking'], {
           queryParams: { contact: text.contact, amount: text.amount }});
         }      
     } catch (e) {
+      this.speechResponse.set('');
       console.error('Error speaking text:', e);
     }
   }
 
-    sendToVoiceProxy(text: string) {
+    async sendToVoiceProxy(text: string) {
+      const loading = await this.presentLoading(); 
       const encoded = encodeURIComponent(text);
       const url = `https://arthasetunode-282482783617.asia-south1.run.app/api/voice-proxy?prompt=${encoded}`;
       fetch(url)
@@ -378,9 +401,11 @@ export class VoicePage {
             .map(line => line.replace(/^data:/, '').trim())
             .filter(line => line.length > 0)
             .join(' ');
+          await loading.dismiss(); 
           await this.convertTextToSpeech(cleaned);
         })
-        .catch((error) => {
+        .catch(async (error) => {
+          await loading.dismiss(); 
           console.error('Error during recognition:', error);
         });
   }

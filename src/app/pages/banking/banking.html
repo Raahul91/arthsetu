@@ -1,20 +1,23 @@
-<ion-header  style="    box-shadow: none;">
+<ion-header style="box-shadow: none;">
   <ion-toolbar class="header-toolbar">
     <img src="assets/img/logo.png" alt="Logo" />
   </ion-toolbar>
 </ion-header>
 <ion-content>
       <div *ngIf="currentPage() === 'home'" class="homepage-container">
-      <div class="button-group">
+      <button class="back-btn" aria-label="Back to homepage" (click)="backToVoice()">
+        ← 
+      </button>
+      <div class="margin-div button-group">
         <button class="action-btn" aria-label="Send Money" (click)="currentPage.set('send-money')"><span class="btn-icon" aria-hidden="true">💸</span> Send Money</button>
         <button class="action-btn" aria-label="Check Balance" (click)="currentPage.set('check-balance')"><span class="btn-icon" aria-hidden="true">💰</span> Check Balance</button>
         <button class="action-btn" aria-label="Transactions" (click)="showTransactions()"><span class="btn-icon" aria-hidden="true">📄</span> Transactions</button>
         <button *ngIf="false" class="action-btn" aria-label="Voice Assistant" (click)="currentPage.set('voice')"><span class="btn-icon" aria-hidden="true">🎤</span> Voice Assistant</button>
       </div>
     </div>
-    <div *ngIf="currentPage() === 'voice'" class="voice-assistant-screen">
+    <div *ngIf="currentPage() === 'voice'" class="margin-div voice-assistant-screen">
       <button class="back-btn" aria-label="Back to homepage" (click)="currentPage.set('home')">
-        ← Back
+        ← 
       </button>
       <div class="lang-select-container">
         <label for="lang-select" class="lang-label">Language:</label>
@@ -42,9 +45,9 @@
       <div *ngIf="apiLoading()" class="api-loading">Getting response...</div>
       <div *ngIf="apiResponse() && !apiLoading()" class="api-response">{{ apiResponse() }}</div>
     </div>
-    <div *ngIf="currentPage() === 'send-money'" class="send-money-screen">
+    <div *ngIf="currentPage() === 'send-money'" class="margin-div send-money-screen">
       <button class="back-btn" aria-label="Back to homepage" (click)="currentPage.set('home')">
-        ← Back
+        ← 
       </button>
       <h2 class="send-money-title">Send Money</h2>
       <div *ngIf="contactsLoading()" class="contacts-loading">Loading contacts...</div>
@@ -55,9 +58,9 @@
         </div>
       </div>
     </div>
-    <div *ngIf="currentPage() === 'send-money-detail' && selectedContact()" class="send-money-detail-screen">
+    <div *ngIf="currentPage() === 'send-money-detail' && selectedContact()" class="margin-div send-money-detail-screen">
       <button class="back-btn" aria-label="Back to send money" (click)="currentPage.set('send-money')">
-        ← Back
+        ←
       </button>
       <h2 class="send-money-title">Send Money to</h2>
       <div class="contact-detail contact-detail-vertical">
@@ -76,15 +79,15 @@
       </div>
       <button class="send-btn" (click)="sendMoney()">Send</button>
     </div>
-    <div *ngIf="currentPage() === 'check-balance'" class="balance-screen">
+    <div *ngIf="currentPage() === 'check-balance'" class="margin-div balance-screen">
       <button class="back-btn" aria-label="Back to homepage" (click)="currentPage.set('home')">
-        ← Back
+        ← 
       </button>
       <h2 class="balance-title">Account Balance</h2>
       <div *ngIf="balanceLoading()" class="balance-loading">Loading balance...</div>
       <div *ngIf="!balanceLoading()" class="balance-amount">₹ {{ balance() | number:'1.0-0' }}</div>
     </div>
-    <div *ngIf="currentPage() === 'transaction-success' && transaction()" class="transaction-success-screen">
+    <div *ngIf="currentPage() === 'transaction-success' && transaction()" class="margin-div transaction-success-screen">
       <h2 class="success-title">Transaction Successful</h2>
       <div class="contact-detail contact-detail-vertical">
         <img [src]="transaction().photo" [alt]="transaction().name" class="contact-photo-large" />
@@ -96,9 +99,9 @@
       </div>
       <button class="back-btn" aria-label="Back to Home" (click)="goHome()">Back to Home</button>
     </div>
-    <div *ngIf="currentPage() === 'transactions'" class="transactions-screen">
+    <div *ngIf="currentPage() === 'transactions'" class="margin-div transactions-screen">
       <button class="back-btn" aria-label="Back to homepage" (click)="currentPage.set('home')">
-        ← Back
+        ← 
       </button>
       <h2 class="transactions-title">Recent Transactions</h2>
       <div *ngIf="transactions().length === 0" class="no-transactions">No transactions found.</div>

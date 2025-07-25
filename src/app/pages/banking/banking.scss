@@ -4,7 +4,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      // background: #181c24;
+      background: #fff;
       padding: 2rem 1rem;
     }
     .voice-assistant-screen {
@@ -13,7 +13,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: #181c24;
+      background: #fff;
       color: #fff;
       font-size: 2rem;
       position: relative;
@@ -127,8 +127,7 @@
       top: 1.5rem;
       left: 1.5rem;
       z-index: 10;
-      background: #222b3a;
-      color: #fff;
+      color: #6030ff;
       border: none;
       border-radius: 0.8rem;
       font-size: 1.4rem;
@@ -165,7 +164,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background: #181c24;
+      background: #fff;
       color: #fff;
       padding: 2rem 1rem;
     }
@@ -194,7 +193,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      background: #222b3a;
+      background: #6030ff;
       border-radius: 1.2rem;
       padding: 1rem 1.2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
@@ -225,7 +224,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background: #181c24;
+      background: #fff;
       color: #fff;
       padding: 2rem 1rem;
     }
@@ -244,7 +243,7 @@
     }
     .balance-amount {
       font-size: 3.2rem;
-      color: #ffd600;
+      color: #000;
       font-weight: 900;
       margin-top: 2.5rem;
       letter-spacing: 2px;
@@ -279,7 +278,7 @@
       padding: 0.4rem 1rem;
       border-radius: 0.6rem;
       border: 1px solid #00e6d0;
-      background: #222b3a;
+      background: #fff;
       color: #00e6d0;
       font-weight: 600;
       outline: none;
@@ -294,7 +293,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background: #181c24;
+      background: #6030ff;
       color: #fff;
       padding: 2rem 1rem;
     }
@@ -302,7 +301,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      background: #222b3a;
+      background: #6030ff;
       border-radius: 1.2rem;
       padding: 1rem 1.2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
@@ -315,11 +314,11 @@
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #00e6d0;
-      background: #fff;
+      background: #6030ff;
     }
     .contact-detail .contact-name {
       font-size: 2.5rem;
-      color: #fff;
+      color: #6030ff;
       font-weight: 800;
       letter-spacing: 0.5px;
       text-align: left;
@@ -342,8 +341,7 @@
       padding: 1rem 1.5rem;
       border-radius: 0.8rem;
       border: 1px solid #00e6d0;
-      background: #222b3a;
-      color: #fff;
+      background: #6030ff;
       font-weight: 600;
       text-align: center;
       outline: none;
@@ -356,7 +354,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background: #222b3a;
+      background: #fff;
       border-radius: 1.2rem;
       padding: 2rem 1.2rem 1.5rem 1.2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
@@ -373,7 +371,7 @@
     }
     .contact-name-large {
       font-size: 3.2rem;
-      color: #fff;
+      color: #6030ff;
       font-weight: 900;
       letter-spacing: 1px;
       text-align: center;
@@ -424,7 +422,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background: #181c24;
+      background: #fff;
       color: #fff;
       padding: 2rem 1rem;
     }
@@ -448,7 +446,7 @@
     }
     .success-id {
       font-size: 1.3rem;
-      color: #fff;
+      color: #6030ff;
       font-weight: 600;
       letter-spacing: 1px;
     }
@@ -458,7 +456,7 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      background: #181c24;
+      background: #6030ff;
       color: #fff;
       padding: 2rem 1rem;
     }
@@ -479,7 +477,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      background: #222b3a;
+      background: #fff;
       border-radius: 1.2rem;
       padding: 1rem 1.2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.18);
@@ -503,29 +501,34 @@
     }
     .transaction-name {
       font-size: 1.3rem;
-      color: #fff;
+      color: #6030ff;
       font-weight: 700;
     }
     .transaction-amount {
       font-size: 1.2rem;
-      color: #ffd600;
+      color: #000;
       font-weight: 700;
     }
     .transaction-id {
       font-size: 0.9rem;
-      color: #00e6d0;
+      color: #000;
       font-weight: 500;
     }
     .transaction-date {
       font-size: 0.9rem;
-      color: #bbb;
+      color: #000;
       font-weight: 400;
     }
 
     .header-toolbar {
     text-align: center;
 
-    img {
-      width: 50%;
+      img {
+        width: 50%;
+
+      }
     }
-}
+
+    .margin-div {
+      margin-top: 90px;
+    }

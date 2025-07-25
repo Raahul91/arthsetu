@@ -39,16 +39,7 @@ export class BankingPage {
   transactions = signal<any[]>([]);
   params: any;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-    console.log('Received params:', params);
-    this.params = params;
-    if(this.params && this.params.contact && this.params.amount) {
-      this.currentPage.set('send-money');
-      //this.fetchContacts();
-    }
-  });
-
+  constructor(private router: Router, private route: ActivatedRoute) {
     effect(() => {
       if (this.currentPage() === 'send-money') {
         this.fetchContacts();
@@ -57,6 +48,15 @@ export class BankingPage {
         this.fetchBalance();
       }
     });
+    
+    this.route.queryParams.subscribe(params => {
+    console.log('Received params:', params);
+    this.params = params;
+    if(this.params && this.params.contact && this.params.amount) {
+      this.currentPage.set('send-money');
+      //this.fetchContacts();
+    }
+    })
   }
 
   fetchContacts() {
@@ -243,5 +243,9 @@ export class BankingPage {
       return new Date(txn.timestamp._seconds * 1000);
     }
     return null;
+  }
+
+  backToVoice() {
+    this.router.navigate(['/voice'])
   }
 }
