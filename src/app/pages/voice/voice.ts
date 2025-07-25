@@ -315,7 +315,7 @@ export class VoicePage {
                setTimeout(() => {
                   this.isListening = false;
                   console.log('Stopped listening');
-                }, 5000);
+                }, 500);
               _this.zone.run(() => {
               _this.matches = matches;
             })
